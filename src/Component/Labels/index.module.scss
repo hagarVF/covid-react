@@ -1,0 +1,32 @@
+@import "../../index.scss";
+
+.Label_box {
+  background-color: #eee;
+  color: #0aad0a;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  transform: rotateY(180deg);
+  z-index: 0;
+  position: absolute;
+  backface-visibility: hidden;
+  @include borderRadius(5px);
+  cursor: pointer;
+
+  .Label_info {
+    padding: 2px;
+    p {
+      font-size: 13px;
+    }
+    .label_title {
+      display: flex;
+      p {
+        margin: 0 15px;
+        font-size: 13px;
+      }
+      img {
+        max-width: 20px;
+      }
+    }
+  }
+}

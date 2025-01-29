@@ -1,0 +1,32 @@
+@import "../../index.scss";
+
+.country {
+  .Country_box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    .item_box {
+      position: relative;
+      width: 150px;
+      height: 170px;
+      transform-style: preserve-3d;
+      transition: 0.4s ease-in-out;
+      .card_front {
+        position: absolute;
+        z-index: 1;
+        height: 100%;
+        width: 100%;
+        backface-visibility: hidden;
+        .Country_btn {
+          background-color: $mainColor;
+          border: none;
+          height: 170px;
+          width: 150px;
+        }
+      }
+      &:hover {
+        transform: perspective(400px) rotateY(180deg);
+      }
+    }
+  }
+}
