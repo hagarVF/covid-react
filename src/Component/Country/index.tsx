@@ -21,7 +21,9 @@ const Country: React.FC<Props> = ({ statsicsData, filtereditem }) => {
 
   const onHoverHandle = (id: string) => {
     const filteredItem = statsicsData.find((el) => el._id === id);
-    setFilteredData(filteredItem);
+    if (filteredItem?._id !== filteredData?._id) {
+      setFilteredData(filteredItem);
+    }
   };
 
   return (

@@ -10,7 +10,7 @@ type Props = {
   statsicsData: Result[];
 };
 
-const Chart: React.FC<Props> = ({ statsicsData }) => {
+const Chart: React.FC<Props> = React.memo(({ statsicsData }) => {
   const [isFirstInput, setIsFirstInput] = useState(false);
   const [errorField, setErrorField] = useState<string[]>([]);
   const [Date, setDate] = useState({
@@ -190,6 +190,6 @@ const Chart: React.FC<Props> = ({ statsicsData }) => {
       <LineChart chartData={chartData} chartSecondData={chartSecondData} />
     </>
   );
-};
+});
 
 export default Chart;
