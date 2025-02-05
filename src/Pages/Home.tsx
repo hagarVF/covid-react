@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Statsics from "../Component/Statsics";
 import ChartLine from "../Component/Chart";
 import Country from "../Component/Country";
 import Loading from "../Component/Loading";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { filteredCity, getAllStatsics, setLoading } from "../store/covid.slice";
-import { useDebounce } from "../customHooks/usedeponce";
+import { filteredCity, getAllStatsics } from "../store/covid.slice";
+// import { useDebounce } from "../customHooks/usedeponce";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ const Home = () => {
   const { country, countries, isLoading } = useAppSelector(
     (state) => state.countriesSlice
   );
-  const debouncedIsLoading = useDebounce(200, isLoading);
+  // const debouncedIsLoading = useDebounce(200, isLoading);
   const worldCases = useMemo(
     () => countries.reduce((acc, curr) => acc + curr.imageId.cases, 0),
     [countries]
@@ -38,29 +38,33 @@ const Home = () => {
    * find and selects a specific country by its ID.
    * Dispatches an action to update the country state in the Redux
    */
-  const filtereditem = (_id: string) => {
-    if (!selectedCity) {
-      setSelectedCity(true);
-    }
-    dispatch(filteredCity(_id));
-  };
+  const filtereditem = useCallback(
+    (_id: string) => {
+      if (!selectedCity) {
+        setSelectedCity(true);
+      }
+      dispatch(filteredCity(_id));
+    },
+    [dispatch, selectedCity]
+  );
   /**
    * Dispatch loading to true before fetching data.
    * Fetch data using getAllStatsics.
    * Dispatch loading to false after data has been fetched.
    */
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch(setLoading(true));
-      await dispatch(getAllStatsics());
-      dispatch(setLoading(false));
-    };
-    fetchData();
+    // const fetchData = async () => {
+    //   dispatch(setLoading(true));
+    //   await dispatch(getAllStatsics());
+    //   dispatch(setLoading(false));
+    // };
+    // fetchData();
+    dispatch(getAllStatsics());
   }, [dispatch]);
 
   return (
     <>
-      {debouncedIsLoading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <section>
